@@ -47,6 +47,53 @@ router.get('/blog/:id', async (req, res) => {
   }
 });
 
+router.post('/blog/:blogId/comment', withAuth, async (req, res) => {
+  try {
+    const commentData = await Comments.create({
+      comment: req.body.comment,
+      blog_id: req.params.blogId,
+      user_id: req.session.user_id,  // storing user_id in the session
+      });
+    res.status(200).json(commentData);
+      } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+      }
+    });
+
+    router.delete('/blog/:id', withAuth, async (req, res) => {
+      try {
+        const blogData = await Blog.destroy({
+          where: {
+            id: req.params.id,
+            user_id: req.session.user_id,  // Ensure only the author can delete
+          },
+        });
+        if (!blogData) {
+          res.status(404).json({ message: 'No blog found with this id!' });
+          return;
+        }
+        res.status(204).end();
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    });
+
+// Create a comment
+router.post('/', async (req, res) => {
+    try {
+        const newComment = await Comments.create({
+            content: req.body.content,
+            userId: req.session.userId, // Assumes the user is logged in
+            postId: req.body.postId,
+        });
+        res.status(201).json(newComment);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+
 // Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
   try {
