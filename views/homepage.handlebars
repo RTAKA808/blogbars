@@ -1,18 +1,21 @@
 <!-- Loop over each object in the projects array -->
-{{#each projects as |project| }}
+{{#each blog }}
 <div class="row mb-4 project">
   <div class="col-md-5">
-    <h2>
-      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
-      {{{get_emoji}}}
-      <a href="/blog/{{blog.id}}">{{blog.title}}</a>
-    </h2>
     <p>Created by {{blog.user.username}} on {{format_date blog.date_created}}</p>
   </div>
   <div class="col-md-7">
     <p>
-      {{project.description}}
+      {{blog.content}}
     </p>
+  </div>
+  <div>
+    <p>
+      {{comments.comment}}
+    </p>
+  </div>
+  <div class="col-md-5">
+    <p>Created by {{comments.user.username}} on {{format_date comments.date_created}}</p>
   </div>
 </div>
 {{/each}}
