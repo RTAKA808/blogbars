@@ -6,7 +6,7 @@ const withAuth = require('../../utils/auth');
 router.get('/blog/:id/comments', async (req, res) => {
   try {
       const commentsData = await Comments.findAll({
-          where: { blog_id: req.params.id },
+          where: { id: req.params.id },
           include: [{
               model: Blog,
               attributes: ['title', 'content'] // Assuming you want the title and description from Blog

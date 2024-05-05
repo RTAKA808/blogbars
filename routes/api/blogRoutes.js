@@ -7,34 +7,45 @@ router.get("/", async (req, res) => {
     const blogData = await Blog.findAll();
     res.status(200).json(blogData);
     } catch (err) {
-    res.status(400).json.err;
+    res.status(400).json({error:err});
     }
 });
 
 router.get('/:id', async (req, res) => {
-  try {
+    try {
     const blogData = await Blog.findByPk(req.params.id, {
-    include: [
-        {
-        model: User,
-        attributes: ['username'],
-        },
-    ],
+        include: [{ model: User, attributes: ['username'] }],
     });
-console.log(blogData);
-
-    const blog = blogData.get({ plain: true });
-    res.json(blog)
-    res.render('profile', {
-    ...blog,
-    logged_in: req.session.logged_in,
-    });
+    if (!blogData) {
+        res.status(404).json({ message: "No blog found with that id" });
+        return;
+    }
+    res.json(blogData.get({ plain: true }));
     } catch (err) {
-    res.status(400).json(err);
+    console.log(err);
+    res.status(500).json(err);
     }
 });
 
-
+    router.get(':id', async (req, res) => {
+    try {
+        const blogData = await Blog.findByPk(req.params.id, {
+        include: [{ model: User, attributes: ['username'] }],
+        });
+        if (!blogData) {
+        res.status(404).render('error', { message: "No blog found with that id" });
+        return;
+    }
+      // Render a specific Handlebars template for displaying a blog
+    res.render('profile', {
+        blog: blogData.get({ plain: true }),
+        loggedIn: req.session.loggedIn // Assuming you want to pass the session logged-in state
+    });
+    } catch (err) {
+    console.log(err);
+    res.status(500).render('error', { message: "Internal server error" });
+    }
+});
 
 
 
@@ -82,7 +93,7 @@ try {
     res.status(304).json({ message: "No blog found with that id" });
     return;
     }
-    res.status(100).json({ message: "Blog updated" });
+    res.status(200).json(blogData);
 } catch (err) {
     res.status(475).json(err);
 }

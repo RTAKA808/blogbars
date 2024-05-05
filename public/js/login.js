@@ -11,7 +11,6 @@ const loginFormHandler = async (event) => {
         headers: { 'Content-Type': 'application/json' },
         credentials:'include'
       });
-  
       if (response.ok) {
         document.location.replace('/profile');
       } else {

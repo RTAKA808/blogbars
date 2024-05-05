@@ -1,21 +1,18 @@
-<!-- Loop over each object in the projects array -->
-{{#each blog }}
+{{#each blog}}
 <div class="row mb-4 project">
   <div class="col-md-5">
-    <p>Created by {{blog.user.username}} on {{format_date blog.date_created}}</p>
+    <p>Created by {{user.username}} on {{format_date date_created}}</p>
   </div>
   <div class="col-md-7">
-    <p>
-      {{blog.content}}
-    </p>
+    <p>{{content}}</p>
   </div>
+  {{#each comments}}
   <div>
-    <p>
-      {{comments.comment}}
-    </p>
+    <p>{{comment}}</p>
   </div>
   <div class="col-md-5">
-    <p>Created by {{comments.user.username}} on {{format_date comments.date_created}}</p>
+    <p>Created by {{user.username}} on {{format_date date_created}}</p>
   </div>
+  {{/each}}
 </div>
 {{/each}}
