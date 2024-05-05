@@ -1,10 +1,13 @@
-{{#each blog}}
+{{#each blogs}}
 <div class="row mb-4 project">
+  <div class="col-md-5">
+    <p>{{this.title}}</p>
+  </div>
   <div class="col-md-5">
     <p>Created by {{user.username}} on {{format_date date_created}}</p>
   </div>
   <div class="col-md-7">
-    <p>{{content}}</p>
+    <p>{{contents}}</p>
   </div>
   {{#each comments}}
   <div>

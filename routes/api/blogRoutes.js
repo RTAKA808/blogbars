@@ -49,18 +49,19 @@ router.get('/:id', async (req, res) => {
 
 
 
-
 router.post('/', withAuth, async (req, res) => {
-    try {
+  try {    console.log(req.body)
     const newBlog = await Blog.create({
-    ...req.body,
-    userId: req.session.user_Id,
+        title: req.body.title,
+        contents: req.body.content,
+        user_id: req.session.user_id, // Assumes the user is logged in
     });
-    res.status(200).json(newBlog);
-    } catch (err) {
-    console.log(err);
+
+    res.status(201).json(newBlog);
+  } catch (err) {
+    console.error(err);
     res.status(500).json(err);
-    }
+  }
 });
 
 router.put("/:id", withAuth, async (req, res) => {

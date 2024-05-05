@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 
     // Pass serialized data and session flag into template
     res.render('homepage', { 
-      ...blogArray, 
+      blogs: blogArray, // Ensure the template iterates over 'blogs'
       loggedIn: req.session.loggedIn 
     });
   } catch (err) {
@@ -36,7 +36,7 @@ router.get('/profile', withAuth, async (req, res) => {
       attributes: { exclude: ['password'] },
       include: [{ model: Blog }],
     });
-
+console.log(userData)
     if(!userData){
       res.status(404).json({message:'User not found'})
       return;
