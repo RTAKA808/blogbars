@@ -1,9 +1,10 @@
 # blogbars
 
 ## Description
-This application demonstrates in insomnia how we can use sequelize, postgresql,and express to navigate,create,delete,and edit data along routes to a database
+This application is meant to be a web application for entering blog sites with a sign in and sign up function.
+
 ## Installation
-insatll nodeJS and postgresql to start, then using npm install pg, sequelize, express, and dotenv.  
+insatll nodeJS and postgresql to start, then using npm install pg, sequelize,express-session, express,handlebars,bcrypt and dotenv.  
 
 ## Technologies
 Javascript
@@ -15,19 +16,16 @@ dotenv
 express
 handlebars
 bcrypt
-sequelize-session
+express-session
 
 ## Usage
-To use this application you first need to open the terminal in the database folder and enter your credentials to log into postgresql.
-Once logged in the user needs to type \i schema.sql to create the database.
-Open the terminal for server.js and seed the table by typing in npm run seed.
-Once seeded with data you cna use insomnia to test all the routes.
+To use this application you first need to sign in or sign up with a password that is at least 6 digits long.  If there are any previous posts they will be rendered on the home page.  Once the login is successful the user can go to their profile and enter a new blog or leave a comment.  If the user goes back to the homepage they should see their blog posts with the title and time it was posted as well as comments if there are any. The user can then click the logout link to logout and go back to the homepage.
 
 ## license
 See repository for licensing information 
 
 ## Credits
-Collaborators include: Alicc Madd
+Collaborators include: Alicc Madd, Kyle Vance
 resources used: MDN, W3 schools, google search
 
 ## links
@@ -36,7 +34,5 @@ github repo:
 https://github.com/RTAKA808/blogbars
 
 screenshot:
+![alt text](public/images/blogbarsss.JPG)
 
-
-demo link:
-https://drive.google.com/file/d/1edFzo8D-zkQE0emX9KvtC2PNN4GDa5Du/view
