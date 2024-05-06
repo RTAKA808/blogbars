@@ -22,4 +22,9 @@ header, .project:not(:last-child) {
     font-weight: bold;
     margin-left: -5px;
   }
+
+  #deleteBtn{
+    border: 1px solid black;
+    height: 1rem;
+  }
   

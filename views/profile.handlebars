@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-auto">
-    <h2>Welcome, {{username}}!</h2>
+    <h2>Welcome, {{user.username}}!</h2>
   </div>
 </div>
 
@@ -8,14 +8,14 @@
   <div class="col-md-6">
     <h3>Create a New Blog Post:</h3>
 
-    <form class='form' id="new-blog-form" method="POST">
+    <form class='form' id="new-blog-form" >
       <div class="form-group">
         <label for="blog-title">Blog Title:</label>
-        <input class="form-input" type="text" id="blog-title" name="blog-title" />
+        <input class="form-input" type="text" id="blog-title" name="title" />
       </div>
       <div class="form-group">
         <label for="blog-content">Enter New Blog:</label>
-        <textarea class="form-input" id="blog-content" name="blog-content"></textarea>
+        <textarea class="form-input" id="blog-content" name="contents"></textarea>
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary">Create</button>
@@ -23,22 +23,22 @@
     </form>
   </div>
 
-  {{#if blog.length}}
+ 
   <div class="col-md-6 blog-list">
     <h3>Current Blogs:</h3>
-
-    {{#each blog}}
-    <div class="row mb-2">
+    {{#if user.blogs}}
+    {{#each user.blogs}}
+    <div class="row mb-2" id=`blog_id${id}` data-blog_id={this.id}>
       <div class="col-md-8">
-        <h4><a href="/blog/{{this.id}}">{{this.title}}</a></h4>
+        <h4><a href="api/blog/{{this.id}}">{{this.title}}</a></h4>
       </div>
       <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id='{{this.id}}'>DELETE</button>
+        <button class="btn btn-sm btn-danger deleteBtn"  data-id='{{this.id}}'>DELETE</button>
       </div>
-      <form class="form new-comment-form" method="POST" action="/api/blog/:id/comments">
+      <form class="form new-comment-form" >
         <div class="form-group">
-          <label for="comment-content">Enter Comment:</label>
-          <textarea class="form-input" id="comment-content" name="comment-content"></textarea>
+          <label for={{id}}>Enter Comment:</label>
+          <textarea class="form-input" id={{id}} name="comment"></textarea>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-primary">Comment</button>
@@ -46,8 +46,30 @@
       </form>
     </div>
     {{/each}}
+    {{else}}
+    <div class="new-comment-form"></div>
+    {{/if}}
+    {{!-- {{#each blog}}
+<div class="row mb-2">
+  <div class="col-md-8">
+    <h4>{{this.title}}</h4>
+    <p>{{this.contents}}</p>
   </div>
-  {{/if}}
+  <div class="col-md-4">
+    <button class="btn btn-sm btn-danger deleteBtn" data-id='{{this.id}}'>DELETE</button>
+  </div>
+  <form class="form new-comment-form" method="POST" >
+    <input type="hidden" name="blog_id" id='blog_id' value="{{this.id}}" />
+    <div class="form-group">
+      <label for="comment-content-{{this.id}}">Enter Comment:</label>
+      <textarea class="form-input" id="comment" name="comment"></textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Comment</button>
+    </div>
+  </form>
 </div>
+{{/each}} --}}
+  </div>
 
 <script src="/js/profile.js"></script>

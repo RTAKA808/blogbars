@@ -9,13 +9,20 @@
   <div class="col-md-7">
     <p>{{contents}}</p>
   </div>
-  {{#each comments}}
-  <div>
-    <p>{{comment}}</p>
-  </div>
-  <div class="col-md-5">
-    <p>Created by {{user.username}} on {{format_date date_created}}</p>
-  </div>
-  {{/each}}
+{{#if comments}}
+    <h3>Comments:</h3>
+    <ul>
+        {{#each comments}}
+            <li>
+                <strong>{{this.user.username}}:</strong> {{this.comment}}
+                <br>
+                <small>Posted on {{this.date_created}}</small>
+            </li>
+        {{/each}}
+    </ul>
+
+{{else}}
+    <p>No comments yet.</p>
+{{/if}}
 </div>
 {{/each}}

@@ -2,7 +2,7 @@
 
   const newFormHandler = async (event) => {
     event.preventDefault();
-
+console.log('newFormHandler')
     const title = document.querySelector("#blog-title").value.trim();
     const contents = document.querySelector("#blog-content").value.trim();
 
@@ -23,30 +23,52 @@
     }
   };
 
-  const delButtonHandler = async (event) => {
-    if (event.target.hasAttribute('data-id')) {
+  document.querySelector('.blog-list').addEventListener('click', (event) => {
+    if (event.target.matches('.deleteBtn')) {
       const id = event.target.getAttribute('data-id');
 
-      const response = await fetch(`/api/blog/${id}`, {
+      fetch(`/api/blog/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
+      })
+      .then(response => {
+        if (response.ok) {
+          event.target.closest('.row').remove(); // Remove the blog element from DOM
+        } else {
+          alert('Failed to delete blog');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  });
+
+  document.querySelector('.new-comment-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const comment=event.target.children[0].children[1].value
+      const blog_id=event.target.children[0].children[1].id
+      console.log(event.target.children[0].children[1].id)
+      console.log(event.target.children[0].children[1].value)
+      const response = await fetch(`/api/comments`, {
+        method: 'POST',
+        body: JSON.stringify({comment:comment, blog_id: blog_id}),
+        headers: { 'Content-Type': 'application/json' }
       });
 
       if (response.ok) {
-        document.location.replace('/profile');
+        location.reload();  // Reload the page to show the new comment
       } else {
-        alert('Failed to delete blog');
+        alert('Failed to post comment');
       }
-    }
-  };
+    });
+
+
+
 
   document
     .querySelector("#new-blog-form")
     .addEventListener('submit', newFormHandler);
 
-  document
-    .querySelector('.blog-list')
-    .addEventListener('click', delButtonHandler);
+
 
