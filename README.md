@@ -39,3 +39,6 @@ https://github.com/RTAKA808/blogbars
 screenshot:
 ![alt text](public/images/blogbarsss.JPG)
 
+Live link on render:
+https://blogbars.onrender.com/
+
