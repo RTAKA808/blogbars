@@ -17,7 +17,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Session configuration
 const sess = {
-  secret: 'Super secret secret',
   cookie: {
     maxAge: 60 * 60 * 1000, // One hour
     httpOnly: false,
