@@ -28,6 +28,9 @@ See repository for licensing information
 Collaborators include: Alicc Madd, Kyle Vance
 resources used: MDN, W3 schools, google search
 
+## Lessons Learned
+The interaction of the database routes and handlebars is hard to manage at this skill point.  Going step by step and using console logs and organization of micro tasks help very much.
+
 ## links
 
 github repo:
