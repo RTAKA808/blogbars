@@ -28,7 +28,6 @@ try {
     const blogData = await Blog.update(req.body, {
     where: {
         id: req.params.id,
-        user_id: req.session.user_id,
     },
     });
     if (!blogData[0]) {

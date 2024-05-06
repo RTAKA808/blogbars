@@ -1,6 +1,6 @@
-const User = require('./User');
-const Blog = require('./Blog');
-const Comments = require('./Comments');
+const User = require('./User.js');
+const Blog = require('./Blog.js');
+const Comments = require('./Comments.js');
 User.hasMany(Blog, {
   foreignKey: 'user_id',
   onDelete: 'CASCADE'

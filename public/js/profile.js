@@ -64,7 +64,57 @@ console.log('newFormHandler')
     });
 
 
+    const editBtnHandler = async (event) => {
+      if (event.target.hasAttribute('data-id')) {
+        const id = event.target.getAttribute('data-id');
+        const response = await fetch(`/api/blog/${id}`, {
+          method: 'GET'
+        })
+        if (!response.ok){
+          return;
+        }
+  
+        const blog = await response.json();
+    
+        const editForm = document.getElementById('edit-form');
+  
+        if (editForm) {
+          editForm.innerHTML = `
+            <label for="title">Title:</label>
+            <input type="text" id="title" value="${blog.title}">
+            <label for="content">Content:</label>
+            <textarea id="content">${blog.contents}</textarea>
+            <button id="save-btn">Save Changes</button>
+          `;
+        
+          const saveBtn = editForm.querySelector('#save-btn');
+        
+    
+        saveBtn.addEventListener('click', async () => {
+          const title = document.getElementById('title').value;
+          const content = document.getElementById('content').value;
+    
+          const response = await fetch(`/api/blog/${id}`,
+           {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, content }),
+          });
+    
+          if (response.ok) {
+            console.log('Post updated successfully!');
+            window.location.reload();
+          } else {
+            console.error('Failed to update post!');
+          }
+        });
+      }
+    };
+  }
 
+  document
+    .querySelector('.edit')
+    .addEventListener('click', editBtnHandler);
 
   document
     .querySelector("#new-blog-form")
